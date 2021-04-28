@@ -4,6 +4,7 @@ const multer = require('multer');
 const upload = multer({ dest: 'upload/'});
 const Post = require('../../models/Post');
 const passport = require("passport");
+require('../../passport')(passport);
 
 const router = express.Router();
 

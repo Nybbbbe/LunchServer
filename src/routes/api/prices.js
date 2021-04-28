@@ -1,6 +1,7 @@
 const express = require('express');
 const Price = require('../../models/Price');
 const passport = require("passport");
+require('../../passport')(passport);
 
 const router = express.Router();
 
