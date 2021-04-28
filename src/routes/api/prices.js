@@ -1,5 +1,6 @@
 const express = require('express');
 const Price = require('../../models/Price');
+const passport = require("passport");
 
 const router = express.Router();
 
@@ -16,7 +17,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
+router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
     const price = JSON.parse(req.body.text);
     Price.findOne({ _id:price._id }, (err, result) => {
         if (err) {
@@ -52,7 +53,7 @@ router.post('/', (req, res) => {
     });    
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
     Price.deleteOne({ _id: req.params.id }, (err) => {
         if (err) {
             return res.status(500).json({

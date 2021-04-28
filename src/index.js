@@ -7,6 +7,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const passport = require("passport");
 const issueJWT = require('./utils').issueJWT;
+const validPassword = require('./utils').validPassword;
 
 require('./passport')(passport);
 
@@ -33,58 +34,32 @@ app.use(passport.session());
 app.post('/login', async (req, res) => {
     console.log("Trying to log in")
     try {
+        console.log(req.body)
         const { username, password } = req.body;
 
         User.findOne({ username: username }, (err, user) => {
+            console.log(user);
             if (user) {
-                const isValid = !bcrypt.compareSync(password, user.password);
-    
+                const isValid = validPassword(password, user.hash, user.salt);
+                console.log(isValid);
                 if (isValid) {
                     const jwt = issueJWT(user);
+                    console.log(jwt);
                     return res.status(200).json({ success: true, user: user, token: jwt.token, expiresIn: jwt.expires });
                 } else {
                     return res.status(401).json({ success: false, msg: "Wrong Credentials" });
                 }
             } else {
-                res.status(401).json(err);
+                console.log(err);
+                return res.status(401).json(err);
             }
-        })
-
-        return res.status(401).json({ success: false, msg: "Wrong Credentials" });
+        });
 
     } catch (error) {
         console.log(error)
         return res.status(401).json(error);
     }
 });
-
-// app.post('/login', (req, res) => {
-//     User.findOne({ username: req.body.username }, (err, user) => {
-//         if (err) {
-//             return res.status(500).json({
-//                 title: 'server error',
-//                 error: err
-//             });
-//         }
-//         if (!user) {
-//             return res.status(401).json({
-//                 title: 'user not found',
-//                 error: 'invalid credentials'
-//             });
-//         }
-//         if (!bcrypt.compareSync(req.body.password, user.password)) {
-//             return res.status(401).json({
-//                 title: 'login failed',
-//                 error: 'invalid credentials'
-//             });
-//         }
-//         let token = jwt.sign({ userId: user._id }, 'secretkey');
-//         return res.status(200).json({
-//             title: 'login success',
-//             token: token
-//         });
-//     });
-// });
 
 const posts = require('./routes/api/posts');
 const hours = require('./routes/api/hours');

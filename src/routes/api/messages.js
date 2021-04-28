@@ -1,5 +1,6 @@
 const express = require('express');
 const Message = require('../../models/Message');
+const passport = require("passport");
 
 const router = express.Router();
 
@@ -16,7 +17,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
+router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
     const nMessage = JSON.parse(req.body.text);
     Message.findOne({}, (err, message) => {
         if (err) {

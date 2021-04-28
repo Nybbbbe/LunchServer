@@ -3,6 +3,7 @@ const fs = require('fs');
 const multer = require('multer');
 const upload = multer({ dest: 'upload/'});
 const Post = require('../../models/Post');
+const passport = require("passport");
 
 const router = express.Router();
 
@@ -33,7 +34,7 @@ router.get('/images/:id', (req, res) => {
     });
 });
 
-router.post('/', upload.single('image'), (req, res) => {
+router.post('/', passport.authenticate('jwt', {session: false}), upload.single('image'), (req, res) => {
     console.log("Adding new post");
     let newPost = {};
     if (req.file) {
@@ -63,7 +64,7 @@ router.post('/', upload.single('image'), (req, res) => {
     });
 });
 
-router.post('/:id', (req, res) => {
+router.post('/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
     const post = JSON.parse(req.body.text);
     Post.findOne({ _id:req.params.id }, (err, result) => {
         if (err) {
@@ -81,7 +82,7 @@ router.post('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
     Post.deleteOne({ _id: req.params.id }, (err) => {
         if (err) {
             return res.status(500).json({
