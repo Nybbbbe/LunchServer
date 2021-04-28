@@ -48,7 +48,8 @@ newPost.save(err => {
 });
 
 const newHours = new Hours({
-    hours: 'Mon - Fri 10:30 - 15:00'
+    hours: 'Mon - Fri 10:30 - 15:00',
+    language: "eng"
 });
 
 newHours.save(err => {
@@ -74,7 +75,8 @@ newPrice.save(err => {
 });
 
 const newMessage = new Message({
-    message: 'This friday we will have a barbeque party!'
+    message: 'This friday we will have a barbeque party!',
+    language: "eng"
 });
 
 newMessage.save(err => {

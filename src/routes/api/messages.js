@@ -5,8 +5,8 @@ require('../../passport')(passport);
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    Message.find({}, (err, message) => {
+router.get('/:lang', (req, res) => {
+    Message.findOne({ 'language': req.params.lang }, (err, message) => {
         if (err) {
             return res.status(500).json({
                 title: 'server error',
@@ -18,9 +18,9 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
-    const nMessage = JSON.parse(req.body.text);
-    Message.findOne({}, (err, message) => {
+router.post('/:lang', passport.authenticate('jwt', {session: false}), (req, res) => {
+    const { nMessage, language } = JSON.parse(req.body);
+    Message.findOne({ 'language': req.params.lang }, (err, message) => {
         if (err) {
             return res.status(500).json({
                 title: 'server error',
@@ -28,7 +28,8 @@ router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
             });
         } else if (!message) {
             const newMessage = new Message({
-                message: nMessage.message
+                message: nMessage,
+                language: language
             });
             newMessage.save();
         }
