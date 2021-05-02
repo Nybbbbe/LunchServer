@@ -8,14 +8,15 @@ require('../../passport')(passport);
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    Post.find({}, (err, posts) => {
+router.get('/:lang', (req, res) => {
+    Post.find({ 'language': req.params.lang }, (err, posts) => {
         if (err) {
             return res.status(500).json({
                 title: 'server error',
                 error: err
             });
         } else {
+            posts = posts.filter(post => post.visible);
             res.send(posts);
         }
     });
@@ -44,13 +45,15 @@ router.post('/', passport.authenticate('jwt', {session: false}), upload.single('
         newPost = new Post({
             title: req.body.title,
             content: req.body.content,
+            language: req.body.language,
             contentType: req.file.mimetype,
             image: new Buffer.alloc(req.file.size, encodeImage, 'base64')
         });
     } else {
         newPost = new Post({
             title: req.body.title,
-            content: req.body.content
+            content: req.body.content,
+            language: req.body.language,
         });
     }
     newPost.save(err => {

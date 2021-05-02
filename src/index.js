@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.post('/login', async (req, res) => {
+app.post('/api/login', async (req, res) => {
     console.log("Trying to log in")
     try {
         console.log(req.body)

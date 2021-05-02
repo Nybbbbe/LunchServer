@@ -6,6 +6,7 @@ const postSchema = new Schema({
     content: String,
     contentType: String,
     image: Buffer,
+    language: String,
     date: {type: Number, default: Date.now},
     visible: {type: Boolean, default: true}
 });

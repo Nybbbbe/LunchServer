@@ -5,8 +5,8 @@ require('../../passport')(passport);
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    Price.find({}, (err, prices) => {
+router.get('/:lang', (req, res) => {
+    Price.find({ 'language': req.params.lang }, (err, prices) => {
         if (err) {
             return res.status(500).json({
                 title: 'server error',
