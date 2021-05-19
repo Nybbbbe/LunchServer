@@ -19,7 +19,7 @@ router.get('/:lang', (req, res) => {
 });
 
 router.post('/:lang', passport.authenticate('jwt', {session: false}), (req, res) => {
-    const { nMessage, language } = JSON.parse(req.body);
+    const msgObj = req.body.obj;
     Message.findOne({ 'language': req.params.lang }, (err, message) => {
         if (err) {
             return res.status(500).json({
@@ -28,13 +28,13 @@ router.post('/:lang', passport.authenticate('jwt', {session: false}), (req, res)
             });
         } else if (!message) {
             const newMessage = new Message({
-                message: nMessage,
-                language: language
+                message: msgObj.message,
+                language: msgObj.language
             });
             newMessage.save();
         }
         else {
-            message.message = nMessage;
+            message.message = msgObj.message;
             message.save();
         }
     });

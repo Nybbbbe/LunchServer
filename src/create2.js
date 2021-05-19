@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-// const Message = require('./models/Message');
-// const Hours = require('./models/Hours');
-// const Post = require('./models/Post');
+const Message = require('./models/Message');
+const Hours = require('./models/Hours');
+const Post = require('./models/Post');
 const Price = require('./models/Price');
 
 mongoose.connect('mongodb://localhost/lunch');
@@ -57,103 +57,103 @@ newPriceFin.save(err => {
     }
 });
 
-// const newPostEng = new Post({
-//     title: 'Random title 1',
-//     content: 'According to all known laws of aviation, there is no way that a bee should be able to fly.',
-//     language: "eng",
-//     visible: true
-// });
+const newPostEng = new Post({
+    title: 'Random title 1',
+    content: 'According to all known laws of aviation, there is no way that a bee should be able to fly.',
+    language: "eng",
+    visible: true
+});
 
-// newPostEng.save(err => {
-//     if (err) {
-//         console.log('Could not save post');
-//     } else {
-//         console.log('Post saved successfully');
-//     }
-// });
+newPostEng.save(err => {
+    if (err) {
+        console.log('Could not save post');
+    } else {
+        console.log('Post saved successfully');
+    }
+});
 
-// const newPostSwe = new Post({
-//     title: 'Svensk titel',
-//     content: 'Någo jätte smart på svenska',
-//     language: "swe",
-//     visible: true
-// });
+const newPostSwe = new Post({
+    title: 'Svensk titel',
+    content: 'Någo jätte smart på svenska',
+    language: "swe",
+    visible: true
+});
 
-// newPostSwe.save(err => {
-//     if (err) {
-//         console.log('Could not save post');
-//     } else {
-//         console.log('Post saved successfully');
-//     }
-// });
+newPostSwe.save(err => {
+    if (err) {
+        console.log('Could not save post');
+    } else {
+        console.log('Post saved successfully');
+    }
+});
 
-// const newPostFin = new Post({
-//     title: 'Otsikko suomeksi',
-//     content: 'Jotain todella fiksua suomeksi',
-//     language: "fin",
-//     visible: true
-// });
+const newPostFin = new Post({
+    title: 'Otsikko suomeksi',
+    content: 'Jotain todella fiksua suomeksi',
+    language: "fin",
+    visible: true
+});
 
-// newPostFin.save(err => {
-//     if (err) {
-//         console.log('Could not save post');
-//     } else {
-//         console.log('Post saved successfully');
-//     }
-// });
+newPostFin.save(err => {
+    if (err) {
+        console.log('Could not save post');
+    } else {
+        console.log('Post saved successfully');
+    }
+});
 
-// const newHoursFi = new Hours({
-//     hours: 'Ma - Pe 10:30 - 15:00\nSu - La Suljettu',
-//     language: "fin"
-// });
+const newHoursFi = new Hours({
+    hours: 'Ma - Pe 10:30 - 15:00\nSu - La Suljettu',
+    language: "fin"
+});
 
-// newHoursFi.save(err => {
-//     if (err) {
-//         console.log('Could not save hours');
-//     } else {
-//         console.log('Hours saved successfully');
-//     }
-// });
-
-
-// const newHoursSwe = new Hours({
-//     hours: 'Mån - Fre 10:30 - 15:00\nSö - Lö Stängt',
-//     language: "swe"
-// });
-
-// newHoursSwe.save(err => {
-//     if (err) {
-//         console.log('Could not save hours');
-//     } else {
-//         console.log('Hours saved successfully');
-//     }
-// });
-
-// const newMessageSwe = new Message({
-//     message: 'Nästa fredag kommer vi att ha en Barbeque fest!!!',
-//     language: "swe"
-// });
-
-// newMessageSwe.save(err => {
-//     if (err) {
-//         console.log('Could not save message');
-//     } else {
-//         console.log('Message saved successfully');
-//     }
-// });
-
-// const newMessageFin = new Message({
-//     message: 'Ensi perjantaina meillä on Barbeque juhlat!!!',
-//     language: "fin"
-// });
-
-// newMessageFin.save(err => {
-//     if (err) {
-//         console.log('Could not save message');
-//     } else {
-//         console.log('Message saved successfully');
-//     }
-// });
+newHoursFi.save(err => {
+    if (err) {
+        console.log('Could not save hours');
+    } else {
+        console.log('Hours saved successfully');
+    }
+});
 
 
-// process.exitCode = 0;
+const newHoursSwe = new Hours({
+    hours: 'Mån - Fre 10:30 - 15:00\nSö - Lö Stängt',
+    language: "swe"
+});
+
+newHoursSwe.save(err => {
+    if (err) {
+        console.log('Could not save hours');
+    } else {
+        console.log('Hours saved successfully');
+    }
+});
+
+const newMessageSwe = new Message({
+    message: 'Nästa fredag kommer vi att ha en Barbeque fest!!!',
+    language: "swe"
+});
+
+newMessageSwe.save(err => {
+    if (err) {
+        console.log('Could not save message');
+    } else {
+        console.log('Message saved successfully');
+    }
+});
+
+const newMessageFin = new Message({
+    message: 'Ensi perjantaina meillä on Barbeque juhlat!!!',
+    language: "fin"
+});
+
+newMessageFin.save(err => {
+    if (err) {
+        console.log('Could not save message');
+    } else {
+        console.log('Message saved successfully');
+    }
+});
+
+
+process.exitCode = 0;

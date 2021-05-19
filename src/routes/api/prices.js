@@ -19,7 +19,7 @@ router.get('/:lang', (req, res) => {
 });
 
 router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
-    const price = JSON.parse(req.body.text);
+    const price = req.body.obj;
     Price.findOne({ _id:price._id }, (err, result) => {
         if (err) {
             return res.status(500).json({
@@ -31,13 +31,15 @@ router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
             result.description = price.description;
             result.priceStudent = price.priceStudent;
             result.priceNormal = price.priceNormal;
+            result.language = price.language
             result.save();
         } else {
             //console.log("does not exist")
             const newPrice = new Price({
                 description: price.description,
                 priceStudent: price.priceStudent,
-                priceNormal: price.priceNormal
+                priceNormal: price.priceNormal,
+                language: price.language
             });
             
             newPrice.save(err => {
